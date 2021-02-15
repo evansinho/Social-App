@@ -1,5 +1,17 @@
 import express from 'express';
-//import mongoose from 'mongoose';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const Database = process.env.DATABASE;
+
+// db config
+mongoose.connect(Database, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+}).then(() => console.log( 'Database Connected' ))
+  .catch(err => console.log( err ));
 
 // Instantiate the app
 const app = express();
