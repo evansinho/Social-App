@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import routes from './routes/index.js';
 
 dotenv.config();
 const Database = process.env.DATABASE;
@@ -24,6 +25,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Welcome'})
 })
+app.use('/api', routes);
 
 // listener
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
