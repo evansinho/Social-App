@@ -25,7 +25,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Welcome'})
 })
-app.use('/api', routes);
+app.use(routes);
 
 // listener
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
