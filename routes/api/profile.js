@@ -168,5 +168,63 @@ router.delete("/profile/experience/:exp_id", auth ,  async (req, res) => {
   }
 })
 
+router.put("/profile/education", [auth, [
+  check("school", "School is required").not().notEmpty(),
+  check("degree", "Degree is required").not().notEmpty(),
+  check("fieldofstudy", "Field of study is required").not().notEmpty(),
+  check("from", "From date is required").not().notEmpty(),
+]] ,  async (req, res) => {
+  try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
+
+    const {
+      school,
+      degree,
+      from,
+      to,
+      current,
+      fieldofstudy,
+      description
+    } = req.body;
+
+    const newEdu = {
+      school,
+      degree,
+      from,
+      to,
+      current,
+      fieldofstudy,
+      description
+    }
+
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    profile.education.unshift(newEdu);
+
+    await profile.save();
+
+    res.status(200).json(profile);
+  } catch (e) {
+    res.status(500).send("server error")
+  }
+})
+
+router.delete("/profile/education/:edu_id", auth ,  async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    const removeIndex = profile.education.map(edu => edu.id).indexOf(req.params.edu_id);
+    profile.education.splice(removeIndex, 1);
+
+    await profile.save();
+
+    res.status(200).json(profile);
+  } catch (e) {
+    res.status(500).send("server error")
+  }
+})
+
 
 export default router;
