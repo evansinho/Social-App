@@ -2,8 +2,13 @@ import express from "express";
 import auth from "../../middleware/auth";
 import Profile from "../../models/Profile";
 import User from "../../models/User";
+import request from "request";
+import dotenv from "dotenv";
 import { check, validationResult} from "express-validator";
 
+dotenv.config();
+const clientId = process.env.githubClientId;
+const clientSecret = process.env.githubClientSecret;
 
 const router = express.Router();
 
@@ -221,6 +226,25 @@ router.delete("/profile/education/:edu_id", auth ,  async (req, res) => {
     await profile.save();
 
     res.status(200).json(profile);
+  } catch (e) {
+    res.status(500).send("server error")
+  }
+})
+
+router.get("/profile/github/:username", async (req, res) => {
+  try {
+    const options = {
+      uri : `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc&client_id=${clientId}&client_secret=${clientSecret}`,
+      method: "GET",
+      headers: {"user-agent": "node.js"}
+    };
+
+    request(options, (error, response, body) => {
+      if (error) console.log(error);
+      if (response.statusCode !== 200) return res.status(404).json({msg : "No Github user found"})
+
+      return res.json(JSON.parse(body));
+    })
   } catch (e) {
     res.status(500).send("server error")
   }
