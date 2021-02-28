@@ -1,6 +1,5 @@
 import express from "express";
 import auth from "../../middleware/auth";
-import Profile from "../../models/Profile";
 import User from "../../models/User";
 import Post from "../../models/Post";
 import { check, validationResult} from "express-validator";
