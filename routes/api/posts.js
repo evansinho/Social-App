@@ -66,6 +66,35 @@ router.delete("/posts/:id", auth ,  async (req, res) => {
   }
 })
 
+router.put("/posts/like/:id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (post.likes.filter(like => like.user.toString() === req.user.id).length > 0) return res.status(400).json({msg: "Post already liked "});
+    
+    post.likes.unshift({ user: req.user.id})
 
+    await post.save();
+
+    res.status(200).json(post.likes);
+  } catch (e) {
+    res.status(500).send("server error")
+  }
+})
+
+router.put("/posts/unlike/:id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (post.likes.filter(like => like.user.toString() === req.user.id).length === 0) return res.status(400).json({msg: "Post has not been liked you "});
+    
+    const removeIndex = post.likes.map(like => like.user.toString()).indexOf(req.user.id);
+    post.likes.splice(removeIndex, 1);
+
+    await post.save();
+
+    res.status(200).json(post.likes);
+  } catch (e) {
+    res.status(500).send("server error")
+  }
+})
 
 export default router;
