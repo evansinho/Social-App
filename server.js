@@ -18,7 +18,7 @@ mongoose.connect(Database, {
 // Instantiate the app
 const app = express();
 // Define our app port.
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 // middlewares
 app.use(express.json({extended: false}));
