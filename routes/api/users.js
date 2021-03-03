@@ -2,9 +2,10 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import { check, validationResult} from "express-validator";
 import User from "../../models/User";
-const gravatar = require("gravatar");
+import pkg from 'express-validator';
+import gravatar from "gravatar";
+const { check, validationResult} = pkg;
 
 dotenv.config();
 const SECRET = process.env.SECRET;

@@ -2,7 +2,8 @@ import express from "express";
 import auth from "../../middleware/auth";
 import User from "../../models/User";
 import Post from "../../models/Post";
-import { check, validationResult} from "express-validator";
+import pkg from 'express-validator';
+const { check, validationResult} = pkg;
 
 const router = express.Router();
 

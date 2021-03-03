@@ -4,7 +4,8 @@ import bcrypt from "bcryptjs";
 import User from "../../models/User";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import { check, validationResult} from "express-validator";
+import pkg from 'express-validator';
+const { check, validationResult} = pkg;
 
 dotenv.config();
 const SECRET = process.env.SECRET;

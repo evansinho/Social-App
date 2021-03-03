@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const SECRET = process.env.SECRET;
 
-module.exports = (req, res, next) => {
+const auth = (req, res, next) => {
   const token = req.header("x-auth-token");
   if (typeof token === "undefined") {
     return res.status(401).json({
@@ -17,3 +17,5 @@ module.exports = (req, res, next) => {
     next();
   });
 };
+
+export default auth;

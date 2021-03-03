@@ -4,7 +4,8 @@ import Profile from "../../models/Profile";
 import User from "../../models/User";
 import request from "request";
 import dotenv from "dotenv";
-import { check, validationResult} from "express-validator";
+import pkg from 'express-validator';
+const { check, validationResult} = pkg;
 
 dotenv.config();
 const clientId = process.env.githubClientId;
