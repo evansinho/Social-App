@@ -1,8 +1,8 @@
 import express from "express";
-import authRouter from "./auth";
-import profileRouter from "./profile";
-import postsRouter from "./posts";
-import usersRouter from "./users";
+import authRouter from "./auth.js";
+import profileRouter from "./profile.js";
+import postsRouter from "./posts.js";
+import usersRouter from "./users.js";
 
 const router = express.Router();
 

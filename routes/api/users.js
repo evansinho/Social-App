@@ -2,7 +2,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import User from "../../models/User";
+import User from "../../models/User.js";
 import pkg from 'express-validator';
 import gravatar from "gravatar";
 const { check, validationResult} = pkg;

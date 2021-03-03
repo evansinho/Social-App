@@ -1,7 +1,7 @@
 import express from "express";
-import auth from "../../middleware/auth";
-import User from "../../models/User";
-import Post from "../../models/Post";
+import auth from "../../middleware/auth.js";
+import User from "../../models/User.js";
+import Post from "../../models/Post.js";
 import pkg from 'express-validator';
 const { check, validationResult} = pkg;
 
