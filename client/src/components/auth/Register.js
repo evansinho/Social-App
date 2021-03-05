@@ -1,9 +1,10 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alert';
+import { register } from '../../redux/actions/auth';
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
   const [ formData, setFormData ] = useState({
     name: '',
     email: '',
@@ -18,17 +19,20 @@ const Register = ({ setAlert }) => {
     if (password !== password2) {
       setAlert("passwords do not match", "danger")
     } else {
-      console.log(formData);
+      register({name, email, password});
     }
   }
 
   const onchange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
+
+  if (isAuthenticated) return <Redirect to="/dashboard"/>
+  
   return (
     <Fragment>
       <section className="container">
         <h1 className="large text-primary">Sign Up</h1>
         <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
-        <form className="form" onSubmit={onSubmit}>
+        <form className="form" onSubmit={e => onSubmit(e)}>
           <div className="form-group">
             <input 
               type="text"
@@ -36,7 +40,8 @@ const Register = ({ setAlert }) => {
               name="name"
               value={name} 
               onChange={e => onchange(e)} 
-              required />
+              required 
+              />
           </div>
           <div className="form-group">
             <input 
@@ -44,7 +49,9 @@ const Register = ({ setAlert }) => {
               placeholder="Email Address" 
               name="email" 
               value={email} 
-              onChange={e => onchange(e)} />
+              onChange={e => onchange(e)}
+              required
+              />
             <small className="form-text"
               >This site uses Gravatar so if you want a profile image, use a
               Gravatar email</small
@@ -58,6 +65,7 @@ const Register = ({ setAlert }) => {
               minLength="6"
               value={password} 
               onChange={e => onchange(e)}
+              required
             />
           </div>
           <div className="form-group">
@@ -68,6 +76,7 @@ const Register = ({ setAlert }) => {
               minLength="6"
               value={password2} 
               onChange={e => onchange(e)}
+              required
             />
           </div>
           <input type="submit" className="btn btn-primary" value="Register" />
@@ -80,4 +89,8 @@ const Register = ({ setAlert }) => {
   )
 }
 
-export default connect( null, { setAlert })(Register);
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+})
+
+export default connect( mapStateToProps, { setAlert, register })(Register);
