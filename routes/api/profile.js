@@ -2,6 +2,7 @@ import express from "express";
 import auth from "../../middleware/auth.js";
 import Profile from "../../models/Profile.js";
 import User from "../../models/User.js";
+import Post from "../../models/Post.js";
 import request from "request";
 import dotenv from "dotenv";
 import pkg from 'express-validator';
@@ -110,6 +111,7 @@ router.get("/profile/user/:user_id", async (req, res) => {
 
 router.delete("/profile", auth ,  async (req, res) => {
   try {
+    await Post.deleteMany({ user: req.user.id});
     await Profile.findOneAndRemove({ user: req.user.id});
     await User.findOneAndRemove({ _id: req.user.id});
 
