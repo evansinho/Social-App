@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getCurrentProfile } from '../../redux/actions/profile';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
+import DashboardActions from './DashboardActions'
 
 const Dashboard = ({ getCurrentProfile, auth:{ user }, profile: { loading, profile }}) => {
   useEffect(() => {
@@ -18,18 +19,7 @@ const Dashboard = ({ getCurrentProfile, auth:{ user }, profile: { loading, profi
         <p class="lead"><i class="fas fa-user"></i> Welcome { user && user.name}</p>
         { profile !== null ? 
         <Fragment>
-          <div class="dash-buttons">
-            <a href="edit-profile.html" class="btn btn-light"
-              ><i class="fas fa-user-circle text-primary"></i> Edit Profile</a
-            >
-            <a href="add-experience.html" class="btn btn-light"
-              ><i class="fab fa-black-tie text-primary"></i> Add Experience</a
-            >
-            <a href="add-education.html" class="btn btn-light"
-              ><i class="fas fa-graduation-cap text-primary"></i> Add Education</a
-            >
-          </div>
-
+          <DashboardActions />
           <h2 class="my-2">Experience Credentials</h2>
           <table class="table">
             <thead>
