@@ -5,17 +5,17 @@ import { Link } from 'react-router-dom'
 const ProfileItem = ({ profile }) => {
   return (
     <Fragment>
-      <div class="profile bg-light">
+      <div className="profile bg-light">
         <img
-          class="round-img"
+          className="round-img"
           src={profile.user.avatar}
           alt="avartar"
         />
         <div>
           <h2>{profile.user.name}</h2>
-          <p>{profile.status} { profile.company && <span>at {profile.comapany}</span>}</p>
+          <p>{profile.status} { profile.company && <span>at {profile.company}</span>}</p>
           <p>{profile.location && <span>at {profile.location}</span> }</p>
-          <Link to={`/profile/${profile.user._id}`} class="btn btn-primary">View Profile</Link>
+          <Link to={`/profile/${profile.user._id}`} className="btn btn-primary">View Profile</Link>
         </div>
         <ul className="list-group">
           {profile.skills.slice(0, 4).map((skill, index) => (
