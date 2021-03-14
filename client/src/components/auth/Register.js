@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alert';
 import { register } from '../../redux/actions/auth';
+import PropTypes from 'prop-types';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [ formData, setFormData ] = useState({
@@ -87,6 +88,12 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       </section>
     </Fragment>
   )
+}
+
+Register.propTypes = {
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  setAlert: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
