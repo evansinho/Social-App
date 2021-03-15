@@ -1,10 +1,12 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { 
+  ADD_COMMENT,
   ADD_POST,
   DELETE_POST,
   GET_POST,
   GET_POSTS,
   POST_ERRORS,
+  REMOVE_COMMENT,
   UPDATE_LIKES,
  } from '../constants/types';
 
@@ -46,6 +48,21 @@ export default function (state = initialState, action) {
       return {
         ...state,
         posts: [ payload, ...state.posts],
+        loading: false
+      }
+    case ADD_COMMENT:
+      return {
+         ...state,
+        post: {...state.post, comments: payload},
+        loading: false
+    }
+    case REMOVE_COMMENT:
+      return {
+         ...state,
+        post: {
+          ...state.post,
+          comments: state.post.comments.filter( comment => comment._id !== payload)
+        },
         loading: false
       }
     case POST_ERRORS:

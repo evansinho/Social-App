@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { 
+  ADD_COMMENT,
   ADD_POST,
   DELETE_POST,
   GET_POST,
   GET_POSTS,
   POST_ERRORS,
+  REMOVE_COMMENT,
   UPDATE_LIKES,
 } from '../constants/types';
 import { setAlert } from './alert';
@@ -113,6 +115,50 @@ export const addPost = (formData) => async(dispatch) => {
     })
 
     dispatch(setAlert('Post Created', 'success'))
+
+  } catch (err) {
+    dispatch({
+      type: POST_ERRORS,
+      payload: { msg: err.response.statusText, status: err.response.status}
+    })
+  }
+};
+
+export const addComment = ( postId, formData ) => async(dispatch) => {
+  try{
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    const res = await axios.post(`http://localhost:5000/api/posts/comment/${postId}`, formData, config);
+
+    dispatch({
+      type: ADD_COMMENT,
+      payload: res.data
+    })
+
+    dispatch(setAlert('Comment Added', 'success'))
+
+  } catch (err) {
+    dispatch({
+      type: POST_ERRORS,
+      payload: { msg: err.response.statusText, status: err.response.status}
+    })
+  }
+};
+
+export const deleteComment = (commentId, postId) => async(dispatch) => {
+  try{
+    await axios.delete(`http://localhost:5000/api/posts/comment/${postId}/${commentId}`);
+
+    dispatch({
+      type: REMOVE_COMMENT,
+      payload: commentId
+    })
+
+    dispatch(setAlert('Comment Removed', 'success'))
 
   } catch (err) {
     dispatch({
