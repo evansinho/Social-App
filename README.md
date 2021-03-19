@@ -1,6 +1,6 @@
 # Social-App
 
-A social application called DevConnector, where developers connect with each other built with React/Redux, NodeJs and MongoDB.
+A social application called DevConnector, where developers connect with each other.Built with React/Redux, NodeJs and MongoDB.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

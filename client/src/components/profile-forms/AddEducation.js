@@ -40,7 +40,7 @@ const AddEducation = ({ addEducation, history }) => {
         Add Your Education
       </h1>
       <p className="lead">
-        <i className="fas fa-graduation-cap"></i> Add any school, bootcamp, etc that
+        <i className="fas fa-graduation-cap"></i> Add any school, bootcamp, or other education institutions that
         you have attended
       </p>
       <small>* = required field</small>
@@ -87,7 +87,7 @@ const AddEducation = ({ addEducation, history }) => {
                 setFormData({...formData, current: !current}); 
                 toggleToDateDisabled(!toDateDisabled)
               }} 
-              /> {''}Current Job</p>
+              /> {''}Current Education</p>
         </div>
         <div className="form-group">
           <h4>To Date</h4>
@@ -104,7 +104,7 @@ const AddEducation = ({ addEducation, history }) => {
             name="description"
             cols="30"
             rows="5"
-            placeholder="Job Description"
+            placeholder="Education Description"
             value={description} 
             onChange={e => onchange(e)}
           ></textarea>
