@@ -14,7 +14,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## live demo
 
-[DevConnector](https://evanson-dev-connector.herokuapp.com/)
+[DevConnector](https://social-app-h8iy.onrender.com/)
 
 ## Nice to have requirements
 
