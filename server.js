@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import routes from './routes/index.js';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import path from 'path';
 import bcrypt from 'bcryptjs';
 import User from './models/User.js';
@@ -109,11 +111,14 @@ app.use(express.json({ extended: false }));
 // Routes
 app.use(routes);
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 // Production configuration
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+  app.use(express.static(path.join(__dirname, 'client/build')));
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
 
